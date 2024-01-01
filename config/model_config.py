@@ -1,11 +1,3 @@
-'''
-Date: 2023-04-17 22:58:43
-LastEditors: Tengfei Ma, tfma@hnu.edu.cn
-LastEditTime: 2023-07-09 14:41:32
-FilePath: /debias/config/model_config.py
-Description: 
-'''
-
 class model_config():
     def __init__(self, KG=False, model_name='DNN'):
         if KG:
