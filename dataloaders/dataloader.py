@@ -1,10 +1,3 @@
-'''
-Date: 2023-04-17 22:58:40
-LastEditors: xiaomingaaa
-LastEditTime: 2023-07-25 16:06:46
-FilePath: /debias/dataloaders/dataloader.py
-Description: 
-'''
 import torch
 from torch.utils.data import DataLoader, Dataset
 from subgraph_util.graph_utils import load_pickle
