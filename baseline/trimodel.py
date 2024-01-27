@@ -21,7 +21,6 @@ def main():
     data_name = "pse"
     kg_dp_path = "../data/DRKG"
 
-    # 副作用ID：副作用名字
     se_map_raw = [l.strip().split("\t") for l in open(os.path.join(kg_dp_path, "se_maps.txt")).readlines()]
     se_mapping = {k: v for k, v in se_map_raw}
 
@@ -41,11 +40,9 @@ def main():
     benchmark_triples = np.array([[d1, se, d2] for d1, se, d2 in
                                   np.concatenate([benchmark_train, benchmark_valid, benchmark_test])])
     print(benchmark_triples)
-    # 所有药物 以及 所有药物对关系
     pse_drugs = list(set(list(np.concatenate([benchmark_triples[:, 0], benchmark_triples[:, 2]]))))
     pse_list = set(list(benchmark_triples[:, 1]))
 
-    # 计算每种DDI关系的数量
     rel_dict = dict()
     for s, p, o in benchmark_triples:
         if p not in rel_dict:
@@ -53,7 +50,6 @@ def main():
         else:
             rel_dict[p] += 1
 
-    # 统计每种药物对的关系种类
     pair_dict = dict()
     for s, p, o in benchmark_triples:
         if s > o:
@@ -65,7 +61,6 @@ def main():
         else:
             pair_dict[pair] += 1
 
-    # 统计所有可能结合药物对情况
     drug_combinations = np.array([[d1, d2] for d1, d2 in list(itertools.product(pse_drugs, pse_drugs)) if d1 != d2])
 
     print("Processing dataset files to generate a knowledge graph ... ")
@@ -98,7 +93,6 @@ def main():
     bench_idx_data = np.concatenate([train_data, valid_data, test_data])
     se_facts_full_dict = {se: set() for se in pse_indices}
 
-    # 将每个关系对应三元组存在一起
     for s, p, o in bench_idx_data:
         se_facts_full_dict[p].add((s, p, o))
 
@@ -127,7 +121,6 @@ def main():
     print("Training ... ")
     pipe_model.fit(X=train_data, y=None)
 
-    # 对于每种关系的评价指标初始化
     # metrics_per_se = {se_idx: {"ap": .0, "auc-roc": .0, "auc-pr": .0, "p@50": .0} for se_idx in pse_indices}
     metrics_per_se = {
         se_idx: {"ap": .0, "auc-roc": .0, "auc-pr": .0, "p@50": .0, "acc": .0, "pre": .0, "rec": .0, "f1": .0} for
