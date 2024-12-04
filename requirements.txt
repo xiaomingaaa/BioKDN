@@ -1,0 +1,6 @@
+dgl==1.1.2
+lmdb==1.4.1
+networkx==3.0
+scikit-learn==0.22.1
+torch==2.0.0
+tqdm==4.61.2

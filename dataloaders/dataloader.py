@@ -28,7 +28,7 @@ class RandomData(Dataset):
                 target_info = json.load(open('dataset/{}/dti/target_feat_info.json'.format(args.dataset),'r'))
 
                 for file_type in ['train', 'valid', 'test']:
-                    data = load_pickle('{}/{}/subgraph/{}/{}_subgraph_{}.pkl'.format(args.root_dir, args.dataset, file_type, file_type, args.max_num_nodes))
+                    data = load_pickle('{}/{}/subgraph/{}/{}_subgraph_{}.pkl'.format(args.root_dir, args.dataset, file_type, file_type, args.task_type, args.max_num_nodes))
                     for (did, pid, label, subgraph, h_sg) in data:
                         did, pid = str(did), str(pid)
                         if did not in drug_info:
@@ -56,7 +56,8 @@ class RandomData(Dataset):
                 print('KGE ', KG)
                 drug_info = json.load(open('dataset/{}/dti/drug_feat_info.json'.format(args.dataset), 'r'))
                 target_info = json.load(open('dataset/{}/dti/target_feat_info.json'.format(args.dataset),'r'))
-                data = load_pickle('{}/{}/subgraph/{}/{}_subgraph_{}.pkl'.format(args.root_dir, args.dataset, file_type, file_type, args.max_num_nodes))
+                path = '{}/{}/subgraph/{}/{}_{}_subgraph_{}.pkl'.format(args.root_dir, args.dataset, file_type, file_type, args.task_type, args.max_num_nodes)
+                data = load_pickle(path)
                 for (did, pid, label, subgraph, h_sg) in data:
                     did, pid = str(did), str(pid)
                     if did not in drug_info:
